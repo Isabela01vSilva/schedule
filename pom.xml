@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.Isabela01vSilva</groupId>
-	<artifactId>schedulo</artifactId>
+	<artifactId>schedule</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>schedulo</name>
-	<description>Projeto de agendamento Schedulo</description>
+	<description>Projeto de agendamento Schedule</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -50,8 +50,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
