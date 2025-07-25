@@ -13,10 +13,10 @@ Este sistema oferece uma API RESTful construída com Java 21, Spring Boot e Post
 ### Diagramas do Sistema
 
 - Diagrama de Caso de Uso  
-  ![Diagrama de Caso de Uso](docs/caso-de-uso.png)  
+  ![Diagrama de Caso de Uso](docs/caso-de-uso(2).drawio.png)  
 
 - Diagrama de Classes  
-  ![Diagrama de Classes](docs/diagrama-de-classes.png)  
+  ![Diagrama de Classes](docs/diagrama-classes.drawio.png)  
 
 ---
 
