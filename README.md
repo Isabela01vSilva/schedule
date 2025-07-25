@@ -1,4 +1,4 @@
-# Schedulo — Sistema de Agendamento
+# Schedule — Sistema de Agendamento
 
 🚧 **Status:** Em andamento
 
