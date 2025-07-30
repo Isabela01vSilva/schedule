@@ -6,17 +6,7 @@
 
 Projeto em desenvolvimento para agendamento e gerenciamento de eventos, tarefas ou processos, pensado para ser integrado a múltiplos sistemas e aplicações.
 
-Este sistema oferece uma API RESTful construída com Java 21, Spring Boot e PostgreSQL, focada em fornecer uma solução escalável e flexível para controle de agendamentos e gerenciamento relacionados.
-
----
-
-### Diagramas do Sistema
-
-- Diagrama de Caso de Uso  
-  ![Diagrama de Caso de Uso](docs/caso-de-uso(2).drawio.png)  
-
-- Diagrama de Classes  
-  ![Diagrama de Classes](docs/diagrama-classes.drawio.png)  
+Este sistema oferece uma API RESTful construída com Java 21, Spring Boot e PostgreSQL, focada em fornecer uma solução escalável e flexível para controle de agendamentos e gerenciamento relacionados. 
 
 ---
 
