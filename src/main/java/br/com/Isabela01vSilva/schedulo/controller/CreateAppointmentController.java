@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("v1/appointments")
-public class AppointmentController {
+public class CreateAppointmentController {
 
-    public AppointmentController(CreateAppointmentService service) {
+    public CreateAppointmentController(CreateAppointmentService service) {
         this.service = service;
     }
 

@@ -19,6 +19,7 @@ public class CreateAppointmentService {
         appointment.setAppName(request.appName());
         appointment.setExecutionDate(request.executionDate());
         appointment.setPayload(request.payload());
+        appointment.setStatus(request.status());
         appointmentRepository.save(appointment);
     }
 }

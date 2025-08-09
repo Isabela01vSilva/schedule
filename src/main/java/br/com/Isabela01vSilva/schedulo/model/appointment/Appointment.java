@@ -28,6 +28,10 @@ public class Appointment {
     @Column(name = "nome_aplicacao")
     private String appName;
 
+
+    @Column(name = "status")
+    private String status;
+
     public Long getId() {
         return id;
     }
@@ -58,5 +62,13 @@ public class Appointment {
 
     public void setAppName(String apiName) {
         this.appName = apiName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

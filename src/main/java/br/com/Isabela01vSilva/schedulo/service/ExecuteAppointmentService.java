@@ -2,7 +2,6 @@ package br.com.Isabela01vSilva.schedulo.service;
 
 import br.com.Isabela01vSilva.schedulo.model.appointment.Appointment;
 import br.com.Isabela01vSilva.schedulo.repository.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,6 @@ public class ExecuteAppointmentService {
     public ExecuteAppointmentService(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
     }
-
 
     public Boolean executeSchedules(){
         try{
