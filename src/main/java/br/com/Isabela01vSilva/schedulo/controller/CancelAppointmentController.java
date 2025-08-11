@@ -1,8 +1,13 @@
 package br.com.Isabela01vSilva.schedulo.controller;
 
+import br.com.Isabela01vSilva.schedulo.controller.response.ErrorSwaggerResponse;
 import br.com.Isabela01vSilva.schedulo.controller.response.StatusAppointmentResponse;
-import br.com.Isabela01vSilva.schedulo.model.appointment.Appointment;
-import br.com.Isabela01vSilva.schedulo.repository.AppointmentRepository;
+import br.com.Isabela01vSilva.schedulo.service.CancelAppointmentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,19 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class CancelAppointmentController {
 
     @Autowired
-    private AppointmentRepository repository;
+    private CancelAppointmentService service;
 
+    @Operation(
+            summary = "Cancelar agendamento",
+            description = "Cancela um agendamento existente pelo ID e retorna o status atualizado."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Agendamento cancelado com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = StatusAppointmentResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Agendamento não encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorSwaggerResponse.class)))
+    })
     @PutMapping("/{id}")
     public ResponseEntity<StatusAppointmentResponse> cancelAppointment(@PathVariable Long id) {
-        Appointment appointment = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
-
-        appointment.setStatus("CANCELADO");
-        repository.save(appointment);
-
-        return ResponseEntity.ok(new StatusAppointmentResponse(
-                appointment.getId(),
-                appointment.getStatus(),
-                "Agendamento cancelado com sucesso"));
+        service.cancelAppoitment(id);
+        return ResponseEntity.ok(new StatusAppointmentResponse(id, "CANCELADO", "Agendamento cancelado com sucesso"));
     }
 }
