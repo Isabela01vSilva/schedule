@@ -22,5 +22,16 @@ Este sistema oferece uma API RESTful construída com Java 21, Spring Boot e Post
 ### Tecnologias usadas
 
 - Java 21  
-- Spring Boot  
-- PostgreSQL  
+- Spring Boot
+- PostgreSQL 
+
+---
+
+### Documentação da API (Swagger)
+
+Este projeto utiliza **Swagger UI** para facilitar a visualização e teste dos endpoints da API.
+
+Após iniciar a aplicação, acesse a documentação no navegador:  
+
+- 🔗 URL:  
+  `http://localhost:8081/swagger-ui.html` 
