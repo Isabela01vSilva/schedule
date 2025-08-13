@@ -1,6 +1,7 @@
 package br.com.Isabela01vSilva.schedulo.service;
 
 import br.com.Isabela01vSilva.schedulo.model.appointment.Appointment;
+import br.com.Isabela01vSilva.schedulo.model.appointment.Status;
 import br.com.Isabela01vSilva.schedulo.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class CancelAppointmentService {
                 .orElseThrow(() -> new ResponseStatusException
                         (HttpStatus.NOT_FOUND, "Agendamento não encontrado com id " + id));
 
-        appointment.setStatus("CANCELADO");
+        appointment.setStatus(Status.CANCELADO);
         repository.save(appointment);
     }
 

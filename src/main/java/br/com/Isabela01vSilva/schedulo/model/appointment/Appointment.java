@@ -30,7 +30,7 @@ public class Appointment {
 
 
     @Column(name = "status")
-    private String status;
+    private Status status;
 
     public Long getId() {
         return id;
@@ -64,11 +64,11 @@ public class Appointment {
         this.appName = apiName;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

@@ -2,6 +2,7 @@ package br.com.Isabela01vSilva.schedulo.service;
 
 import br.com.Isabela01vSilva.schedulo.controller.request.CreateAppointmentRequest;
 import br.com.Isabela01vSilva.schedulo.model.appointment.Appointment;
+import br.com.Isabela01vSilva.schedulo.model.appointment.Status;
 import br.com.Isabela01vSilva.schedulo.repository.AppointmentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CreateAppointmentService {
         appointment.setAppName(request.appName());
         appointment.setExecutionDate(request.executionDate());
         appointment.setPayload(request.payload());
-        appointment.setStatus(request.status());
+        appointment.setStatus(Status.valueOf(request.status()));
 
         appointmentRepository.save(appointment);
     }
