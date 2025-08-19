@@ -16,17 +16,21 @@ public class SnsPublisherRaw {
                 .build();
     }
 
-    public void publicar(String arnTopico, String mensagem, String appName) {
+    public void publicar(String arnTopico, String mensagem, String appName, String id) {
         PublishRequest request = PublishRequest.builder()
                 .topicArn(arnTopico)
                 .message(mensagem)
                 .messageAttributes(
                         Map
-                        .of("appName", MessageAttributeValue
-                                .builder()
-                                .dataType("String")
-                                .stringValue(appName)
-                                .build())
+                                .of("appName", MessageAttributeValue
+                                        .builder()
+                                        .dataType("String")
+                                        .stringValue(appName)
+                                        .build(), "id", MessageAttributeValue
+                                        .builder()
+                                        .dataType("String")
+                                        .stringValue(id)
+                                        .build())
                 )
                 .build();
 

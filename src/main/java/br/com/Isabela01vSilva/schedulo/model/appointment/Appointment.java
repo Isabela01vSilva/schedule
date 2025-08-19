@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Table(name = "agendamento")
 @Entity
 public class Appointment {
+
     public Appointment() {
     }
 
@@ -28,7 +29,7 @@ public class Appointment {
     @Column(name = "nome_aplicacao")
     private String appName;
 
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
 
