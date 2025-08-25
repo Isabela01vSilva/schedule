@@ -22,6 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -55,14 +56,16 @@ public class BatchConfig {
                 .build();
     }
 
+
     @Bean
     public JpaPagingItemReader<Appointment> agendamentoReader(EntityManagerFactory emf) {
         JpaPagingItemReader<Appointment> reader = new JpaPagingItemReader<>();
         reader.setEntityManagerFactory(emf);
-        reader.setQueryString("SELECT ap FROM Appointment ap WHERE ap.executionDate = :executionDate");
+        reader.setQueryString("SELECT ap FROM Appointment ap WHERE ap.executionDate = :executionDate and status in :status");
         reader.setPageSize(10);
         Map<String, Object> params = new HashMap<>();
         params.put("executionDate", LocalDate.now());
+        params.put("status", List.of(Status.AGENDADO, Status.RETENTAR));
         reader.setParameterValues(params);
         return reader;
     }
@@ -84,7 +87,7 @@ public class BatchConfig {
     public ItemWriter<Appointment> agendamentoWriter() {
         return agendamentos -> {
             for (Appointment agendamento : agendamentos) {
-                //agendamento.setStatus(Status.PROCESSANDO);
+                agendamento.setStatus(Status.PROCESSANDO);
                 appointmentRepository.save(agendamento);
             }
         };

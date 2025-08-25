@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExecuteAppointmentService {
 
-
     private final AppointmentRepository appointmentRepository;
 
     private final SnsPublisherRaw snsPublisher = new SnsPublisherRaw();
-
 
     @Value("${schedule.topic.arn}")
     private String topicArn;
@@ -22,19 +20,13 @@ public class ExecuteAppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-
+    int index = 0;
 
     public Boolean executeSchedule(Appointment appointment) {
-
-
         try {
-            // Publica no SNS para outros ouvintes saberem
-            if (appointment.getStatus() == Status.AGENDADO)
-                sendToTopic(
-                        appointment.getPayload().toPrettyString(),
-                        appointment.getAppName(),
-                        appointment.getId().toString()
-                );
+            if (appointment.getStatus() == Status.AGENDADO || appointment.getStatus() == Status.RETENTAR)
+                snsPublisher.publicar(topicArn, appointment.getPayload().toPrettyString(),
+                        appointment.getAppName(), appointment.getId().toString());
 
         } catch (Exception e) {
             if (index < 10) {
@@ -43,11 +35,9 @@ public class ExecuteAppointmentService {
                 appointment.setStatus(Status.ERRO);
                 throw e;
             }
-
             System.err.println("Erro ao executar agendamento ID " + appointment.getId() + ": " + e.getMessage());
         }
 
-        // Salva status atualizado no banco
         appointmentRepository.save(appointment);
         return true;
     }
@@ -56,4 +46,3 @@ public class ExecuteAppointmentService {
         snsPublisher.publicar(topicArn, payload, appName, id);
     }
 }
-

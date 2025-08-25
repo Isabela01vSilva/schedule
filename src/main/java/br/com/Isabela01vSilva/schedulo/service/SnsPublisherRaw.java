@@ -26,7 +26,8 @@ public class SnsPublisherRaw {
                                         .builder()
                                         .dataType("String")
                                         .stringValue(appName)
-                                        .build(), "id", MessageAttributeValue
+                                        .build(),
+                                        "appointmentId", MessageAttributeValue
                                         .builder()
                                         .dataType("String")
                                         .stringValue(id)
