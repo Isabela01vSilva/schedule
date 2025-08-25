@@ -16,7 +16,7 @@ public class CallbackService {
     private AppointmentRepository appointmentRepository;
 
     @Transactional
-    public Appointment receberCallback(CallbackDTO callback){
+    public Appointment handleCallback(CallbackDTO callback){
 
         Appointment appointment = appointmentRepository.findById(callback.getAppointmentId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
