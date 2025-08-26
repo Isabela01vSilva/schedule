@@ -18,7 +18,7 @@ public class CallbackController {
 
     @Operation(
             summary = "Receber callback",
-            description = "Recebe o callback enviado por outra api e atualiza o status do agendamento no sistema."
+            description = "Recebe o callback enviado por outra API e atualiza o status do agendamento no sistema."
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Callback recebido com sucesso"),

@@ -34,61 +34,60 @@ public class BatchConfig {
     private AppointmentRepository appointmentRepository;
 
     @Autowired
-    private JobRepository repository;
+    private JobRepository jobRepository;
 
     @Autowired
     private ExecuteAppointmentService executeAppointmentService;
 
     @Bean
-    public Job processarAgendamentosJob(Step processarAgendamentosStep) {
-        return new JobBuilder("processarAgendamentos", repository)
-                .start(processarAgendamentosStep)
+    public Job processarAgendamentosJob(Step processAppointmentsStep) {
+        return new JobBuilder("processAppointments", jobRepository)
+                .start(processAppointmentsStep)
                 .build();
     }
 
     @Bean
-    public Step processarAgendamentosStep(PlatformTransactionManager transactionManager, EntityManagerFactory emf) {
-        return new StepBuilder("buscarAgendamentos", repository)
+    public Step processAppointmentsStep(PlatformTransactionManager transactionManager, EntityManagerFactory emf) {
+        return new StepBuilder("fetchAppointments", jobRepository)
                 .<Appointment, Appointment>chunk(10, transactionManager)
-                .reader(agendamentoReader(emf))
-                .processor(agendamentoProcessor())
-                .writer(agendamentoWriter())
+                .reader(appointmentReader(emf))
+                .processor(appointmentProcessor())
+                .writer(appointmentWriter())
                 .build();
     }
 
-
     @Bean
-    public JpaPagingItemReader<Appointment> agendamentoReader(EntityManagerFactory emf) {
+    public JpaPagingItemReader<Appointment> appointmentReader(EntityManagerFactory emf) {
         JpaPagingItemReader<Appointment> reader = new JpaPagingItemReader<>();
         reader.setEntityManagerFactory(emf);
         reader.setQueryString("SELECT ap FROM Appointment ap WHERE ap.executionDate = :executionDate and status in :status");
         reader.setPageSize(10);
         Map<String, Object> params = new HashMap<>();
         params.put("executionDate", LocalDate.now());
-        params.put("status", List.of(Status.AGENDADO, Status.RETENTAR));
+        params.put("status", List.of(Status.SCHEDULED, Status.RETRY));
         reader.setParameterValues(params);
         return reader;
     }
 
     @Bean
-    public ItemProcessor<Appointment, Appointment> agendamentoProcessor() {
+    public ItemProcessor<Appointment, Appointment> appointmentProcessor() {
         return appointment -> {
             try {
                 executeAppointmentService.executeSchedule(appointment);
                 return appointment;
             } catch (Exception ex) {
-                appointment.setStatus(Status.ERRO);
+                appointment.setStatus(Status.ERROR);
                 return appointment;
             }
         };
     }
 
     @Bean
-    public ItemWriter<Appointment> agendamentoWriter() {
-        return agendamentos -> {
-            for (Appointment agendamento : agendamentos) {
-                agendamento.setStatus(Status.PROCESSANDO);
-                appointmentRepository.save(agendamento);
+    public ItemWriter<Appointment> appointmentWriter() {
+        return appointments  -> {
+            for (Appointment appointment : appointments ) {
+                appointment.setStatus(Status.PROCESSING);
+                appointmentRepository.save(appointment);
             }
         };
     }
