@@ -19,7 +19,7 @@ public class CancelAppointmentService {
                 .orElseThrow(() -> new ResponseStatusException
                         (HttpStatus.NOT_FOUND, "Agendamento não encontrado com id " + id));
 
-        appointment.setStatus(Status.CANCELLED);
+        appointment.setStatus(Status.CANCELLED.name());
         repository.save(appointment);
     }
 

@@ -24,7 +24,8 @@ public class ExecuteAppointmentService {
 
     public Boolean executeSchedule(Appointment appointment) {
         try {
-            if (appointment.getStatus() == Status.SCHEDULED || appointment.getStatus() == Status.RETRY)
+            if (Status.valueOf(appointment.getStatus()) == Status.SCHEDULED
+                    || Status.valueOf(appointment.getStatus()) == Status.RETRY)
                 snsPublisher.publicar(topicArn, appointment.getPayload().toPrettyString(),
                         appointment.getAppName(), appointment.getId().toString());
 
@@ -32,7 +33,7 @@ public class ExecuteAppointmentService {
             if (index < 10) {
                 index++;
                 executeSchedule(appointment);
-                appointment.setStatus(Status.ERROR);
+                appointment.setStatus(Status.ERROR.name());
                 throw e;
             }
             System.err.println("Erro ao executar agendamento ID " + appointment.getId() + ": " + e.getMessage());

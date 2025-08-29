@@ -21,5 +21,5 @@ public enum Status {
     PROCESSING,
 
     @Schema(description = "Retry attempt")
-    RETRY       // retry attempt
+    RETRY
 }

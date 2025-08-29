@@ -1,6 +1,7 @@
 package br.com.Isabela01vSilva.schedulo.service;
 
 import br.com.Isabela01vSilva.schedulo.model.appointment.Appointment;
+import br.com.Isabela01vSilva.schedulo.model.appointment.Status;
 import br.com.Isabela01vSilva.schedulo.repository.AppointmentRepository;
 import br.com.Isabela01vSilva.schedulo.service.dto.AppointmentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ReadAppointmentService {
                 appointment.getId(),
                 appointment.getExecutionDate(),
                 appointment.getPayload(),
-                appointment.getStatus()
+                Status.valueOf(appointment.getStatus())
         );
     }
 
@@ -37,7 +38,7 @@ public class ReadAppointmentService {
                         appointment.getId(),
                         appointment.getExecutionDate(),
                         appointment.getPayload(),
-                        appointment.getStatus()
+                        Status.valueOf(appointment.getStatus())
                 ))
                 .collect(Collectors.toList());
     }

@@ -21,7 +21,7 @@ public class UpdateAppointmentService {
         appointment.setAppName(request.appName());
         appointment.setExecutionDate(request.executionDate());
         appointment.setPayload(request.payload());
-        appointment.setStatus(Status.valueOf(request.status()));
+        appointment.setStatus(Status.valueOf(request.status()).name());
 
         appointmentRepository.save(appointment);
     }

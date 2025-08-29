@@ -5,12 +5,12 @@ import br.com.Isabela01vSilva.schedulo.model.appointment.Status;
 public class CallbackDTO {
 
     private Long appointmentId;
-    private Status status;
+    private String status;
 
     public CallbackDTO() {
     }
 
-    public CallbackDTO(Long appointmentId, Status status) {
+    public CallbackDTO(Long appointmentId, String status) {
         this.appointmentId = appointmentId;
         this.status = status;
     }
@@ -23,11 +23,11 @@ public class CallbackDTO {
         this.appointmentId = appointmentId;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
